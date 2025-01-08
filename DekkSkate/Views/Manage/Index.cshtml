@@ -1,0 +1,145 @@
+﻿@model DekkSkate.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>
+
+
+        @*
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+         Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                }
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
+        *@
+        <dt>Two-Factor Authentication:</dt>
+        <dd>
+            <p>
+                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication.
+            </p>
+            @*@if (Model.TwoFactor)
+        {
+            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Enabled
+                <input type="submit" value="Disable" class="btn btn-link" />
+                </text>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Disabled
+                <input type="submit" value="Enable" class="btn btn-link" />
+                </text>
+            }
+        }*@
+
+            @if (@User.IsInRole("Admin"))
+            {
+                <h4>User List</h4>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+
+                                    <form method="post" action="@Url.Action("UpdateUserRole", "Manage")">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <select name="role" class="form-control" onchange="this.form.submit()">
+                                            <option value="@Model.UserRoles[user.Id].FirstOrDefault()" selected>
+                                                @Model.UserRoles[user.Id].FirstOrDefault()
+                                            </option>
+                                            @if (!Model.UserRoles[user.Id].Contains("Admin"))
+                                            {
+                                                <option value="Admin">Admin</option>
+                                            }
+                                            @if (!Model.UserRoles[user.Id].Contains("Service"))
+                                            {
+                                                <option value="Service">Service</option>
+                                            }
+                                            @if (!Model.UserRoles[user.Id].Contains("User"))
+                                            {
+                                                <option value="User">User</option>
+                                            }
+                                        </select>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <a href="@Url.Action("Index", "Manage", new {id = user.Id})" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            @if (User.IsInRole("Service"))
+            {
+                @Html.ActionLink("My Product", "ProductList", "Skateboards", new { id = Model.SkateboardID }, new { @class = "btn btn-warning" })
+            }
+
+</div>

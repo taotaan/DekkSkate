@@ -1,0 +1,60 @@
+﻿@model DekkSkate.Skateboards
+
+@{
+    ViewBag.Title = "Compare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ ViewBag.Title = "เปรียบเทียบสเก็ตบอร์ด"; }
+
+<h2>เปรียบเทียบสินค้า</h2>
+
+<!-- ส่วนเลือกสินค้า -->
+<div>
+    <label>สินค้า 1:</label>
+    <input type="number" id="skateboard1" placeholder="ใส่ ID สินค้า" />
+    <button onclick="fetchSkateboard(1)">ค้นหา</button>
+</div>
+<div>
+    <label>สินค้า 2:</label>
+    <input type="number" id="skateboard2" placeholder="ใส่ ID สินค้า" />
+    <button onclick="fetchSkateboard(2)">ค้นหา</button>
+</div>
+
+<!-- ส่วนแสดงข้อมูลสินค้า -->
+<div class="comparison-container">
+    <div class="product" id="product1">
+        <h3>สินค้า 1</h3>
+        <img src="" alt="สินค้า 1" style="max-width: 100%; height: auto;" id="image1" />
+        <p id="description1"></p>
+        <p>ราคา: <span id="price1"></span></p>
+        <p>รุ่น: <span id="model1"></span></p>
+    </div>
+
+    <div class="product" id="product2">
+        <h3>สินค้า 2</h3>
+        <img src="" alt="สินค้า 2" style="max-width: 100%; height: auto;" id="image2" />
+        <p id="description2"></p>
+        <p>ราคา: <span id="price2"></span></p>
+        <p>รุ่น: <span id="model2"></span></p>
+    </div>
+</div>
+
+<script>function fetchSkateboard(productNumber) {
+        const id = document.getElementById(`skateboard${productNumber}`).value;
+
+        fetch(`/YourController/GetSkateboardDetails?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById(`product${productNumber}`).querySelector("h3").innerText = data.Name;
+                    document.getElementById(`description${productNumber}`).innerText = data.Description;
+                    document.getElementById(`price${productNumber}`).innerText = `${data.Price} บาท`;
+                    document.getElementById(`model${productNumber}`).innerText = data.Model;
+                    document.getElementById(`image${productNumber}`).src = `/Content/images/${data.ImageURL}`;
+                } else {
+                    alert(`ไม่พบสินค้าด้วย ID ${id}`);
+                }
+            });
+    }</script>
+

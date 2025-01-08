@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DekkSkate.Skateboards>
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (User.IsInRole("Service"))
+{
+    <h2>ProductList</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Price</th>
+            <th>Photo</th>
+            <th>Stock</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@item.Email</td>
+        <td>@item.Price</td>
+        <td><img src=@Url.Content("~/Content/images/" + (item.url)) style="width: 100px;height: auto" /></td>
+        <td>@item.stock</td>
+
+
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Details", "Details", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+        </td>
+    </tr>
+        }
+
+    </table>
+}

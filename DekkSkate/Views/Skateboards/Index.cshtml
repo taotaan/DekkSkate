@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DekkSkate.Skateboards>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<h2>Index</h2>
+
+@using ((Html.BeginForm()))
+{
+    @Html.TextBox("SearchString", null, new { @placeholder = "ค้นหาชื่อหรือรุ่น" })
+    <input type="submit" class="btn btn-info" value="Search" />
+}
+
+@if (User.IsInRole("Service"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary mb-3" })
+    </p>
+}
+
+@Html.ActionLink("เรียง", "Index", new { sortOrder = ViewBag.BrandSortParm }, new
+{ @class = "btn btn-default" })
+
+
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+<div class="col-md-4 mb-4">
+    <div class="card shadow-sm position-relative">
+        <div class="favorite-icon position-absolute" style="top: 10px; right: 10px;">
+            <a href="@Url.Action("Favorites", "Skateboards", new { id = item.SkateboardID })" class="text-danger">
+                <i class="fa fa-heart"></i>
+            </a>
+        </div>
+        <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 100%; height: auto;">
+        <div class="card-body text-center">
+            <h5 class="card-title">@item.Brand</h5>
+            <p class="card-text">@item.Model</p>
+            <p class="card-text"><strong>Price:</strong> @item.Price THB</p>
+            <p class="card-text"><strong>Stock:</strong> @item.stock ITEM</p>
+            <a href="@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })" class="btn btn-primary">Details</a>
+        </div>
+    </div>
+</div>}
+</div>
