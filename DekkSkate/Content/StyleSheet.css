@@ -1,0 +1,235 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+}
+
+.image-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: hidden;
+    padding: 10px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+    .image-container img {
+        width: 300px;
+        height: 300px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+.topic {
+    color: #F86820;
+}
+
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.equipment-item {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+    .equipment-item img {
+        max-width: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.1s ease;
+    }
+
+        .equipment-item img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.5);
+        }
+
+    .equipment-item p {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        color: orange;
+    }
+
+.image-show {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+    .image-show img {
+        width: 300px;
+        height: 200%;
+        transition: transform 0.3s ease, box-shadow 0.1s ease;
+    }
+
+        .image-show img:hover {
+            transform: translateY(-40px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+.topic-1 {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.btn {
+    background-color: #72598d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+    .btn:hover {
+        background-color: #5d4873;
+    }
+
+.pic-1 img {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    border-radius: 25px;
+    object-fit: cover;
+    margin: 30px;
+}
+
+
+.image-container-2 {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+    width: 100%;
+    scroll-snap-type: x mandatory;
+    border-radius: 5px;
+}
+
+
+    .image-container-2 img {
+        width: 300px;
+        height: 200px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .image-container-2::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    .image-container-2::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .image-container-2::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+        .image-container-2::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+/* Footer Styles */
+.footer {
+    background-color: #b2b2b2;
+    padding: 40px 20px;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 20px;
+}
+
+    .footer-logo h2 {
+        font-size: 24px;
+        color: orange;
+        font-weight: bold;
+    }
+
+        .footer-logo h2 span {
+            color: red;
+        }
+
+    .footer-logo p {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+.footer-contact,
+.footer-about,
+.footer-address {
+    flex: 1;
+    min-width: 200px;
+}
+
+    .footer-contact h3,
+    .footer-about h3,
+    .footer-address h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .footer-contact ul,
+    .footer-about ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .footer-contact ul li,
+        .footer-about ul li {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+            .footer-contact ul li i {
+                margin-right: 10px;
+                color: #333;
+            }
+
+            .footer-about ul li a {
+                text-decoration: none;
+                color: #333;
+            }
+
+                .footer-about ul li a:hover {
+                    text-decoration: underline;
+                }
+
+    .footer-address p {
+        font-size: 14px;
+        line-height: 1.5;
+    }

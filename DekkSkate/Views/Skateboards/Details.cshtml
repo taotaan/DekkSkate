@@ -100,15 +100,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.advice)
+            @Html.DisplayNameFor(model => model.suggest)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.advice)
+            @Html.DisplayFor(model => model.suggest)
         </dd>
 
     </dl>
 </div>
+
+<form action="@Url.Action("Favorites", "Favorite", new { id = Model.SkateboardID })" method="post">
+    <button type="submit" class="btn btn-link text-danger">
+        Add to favorite
+    </button>
+</form>
+
 @if (User.IsInRole("Service") && Model.Email == User.Identity.Name)
 {
 @Html.ActionLink("Edit", "Edit", new { id = Model.SkateboardID }, new { @class = "btn btn-warning" })

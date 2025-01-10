@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<h2>Index</h2>
+<h2>Product</h2>
 
 @using ((Html.BeginForm()))
 {
@@ -26,26 +26,46 @@
 { @class = "btn btn-default" })
 
 
-
+<br />
+<br />
+<br />
 
 <div class="row">
     @foreach (var item in Model)
     {
-<div class="col-md-4 mb-4">
+<div class="col-md-3 mb-4"onclick="window.location='@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })'">
     <div class="card shadow-sm position-relative">
         <div class="favorite-icon position-absolute" style="top: 10px; right: 10px;">
-            <a href="@Url.Action("Favorites", "Skateboards", new { id = item.SkateboardID })" class="text-danger">
-                <i class="fa fa-heart"></i>
-            </a>
+            <form action="@Url.Action("Favorites", "Favorite", new { id = item.SkateboardID })" method="post">
+                <button type="submit" class="btn  text-danger" >
+                    <i class="fa fa-heart"></i>
+                </button>
+            </form>
         </div>
-        <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 100%; height: auto;">
+        <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 100%; height: auto; display: block; margin: 0 auto;">
         <div class="card-body text-center">
             <h5 class="card-title">@item.Brand</h5>
             <p class="card-text">@item.Model</p>
             <p class="card-text"><strong>Price:</strong> @item.Price THB</p>
             <p class="card-text"><strong>Stock:</strong> @item.stock ITEM</p>
-            <a href="@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })" class="btn btn-primary">Details</a>
+           
         </div>
     </div>
 </div>}
 </div>
+
+
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+        padding: 17px 22px 12px;
+        padding: 17px 22px 12px;
+        margin-top: 20px;
+    }
+
+        .card:hover {
+            transform: scale(1.05); /* ขยาย 5% เมื่อชี้ */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+        }
+</style>

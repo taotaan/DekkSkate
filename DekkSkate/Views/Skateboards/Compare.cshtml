@@ -40,18 +40,18 @@
     </div>
 </div>
 
-<script>function fetchSkateboard(productNumber) {
-        const id = document.getElementById(`skateboard${productNumber}`).value;
+<script>function fetchSkateboard(Skateboards) {
+        const id = document.getElementById(`skateboards${productNumber}`).value;
 
-        fetch(`/YourController/GetSkateboardDetails?id=${id}`)
+    fetch(`/SkateboardsController/GetSkateboardDetails?id=${id}`)
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    document.getElementById(`product${productNumber}`).querySelector("h3").innerText = data.Name;
+                    document.getElementById(`product${productNumber}`).querySelector("h3").innerText = data.Brand;
                     document.getElementById(`description${productNumber}`).innerText = data.Description;
                     document.getElementById(`price${productNumber}`).innerText = `${data.Price} บาท`;
                     document.getElementById(`model${productNumber}`).innerText = data.Model;
-                    document.getElementById(`image${productNumber}`).src = `/Content/images/${data.ImageURL}`;
+                    document.getElementById(`url${productNumber}`).src = `/Content/images/${data.url}`;
                 } else {
                     alert(`ไม่พบสินค้าด้วย ID ${id}`);
                 }

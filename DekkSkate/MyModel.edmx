@@ -29,6 +29,12 @@
           <Property Name="FavID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SkateboardID" Type="int" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="url" Type="nvarchar(max)" />
+          <Property Name="Model" Type="nvarchar" MaxLength="250" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Reviews">
           <Key>
@@ -46,7 +52,7 @@
           </Key>
           <Property Name="SkateboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Brand" Type="nvarchar" MaxLength="250" />
-          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="nvarchar" MaxLength="100" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Price" Type="money" />
           <Property Name="url" Type="nvarchar(max)" />
@@ -56,7 +62,7 @@
           <Property Name="stock" Type="int" />
           <Property Name="Model" Type="nvarchar" MaxLength="250" />
           <Property Name="address" Type="varchar" MaxLength="300" />
-          <Property Name="advice" Type="nvarchar(max)" />
+          <Property Name="suggest" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
@@ -92,6 +98,12 @@
           <Property Name="FavID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SkateboardID" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reviews">
           <Key>
@@ -109,7 +121,7 @@
           </Key>
           <Property Name="SkateboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -119,7 +131,7 @@
           <Property Name="stock" Type="Int32" />
           <Property Name="Model" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="advice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="suggest" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
@@ -154,6 +166,12 @@
           <EntitySetMapping Name="Fav">
             <EntityTypeMapping TypeName="Model.Fav">
               <MappingFragment StoreEntitySet="Fav">
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="FavID" ColumnName="FavID" />
                 <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
@@ -174,6 +192,7 @@
           <EntitySetMapping Name="Skateboards">
             <EntityTypeMapping TypeName="Model.Skateboards">
               <MappingFragment StoreEntitySet="Skateboards">
+                <ScalarProperty Name="suggest" ColumnName="suggest" />
                 <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
                 <ScalarProperty Name="Brand" ColumnName="Brand" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
@@ -186,7 +205,6 @@
                 <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="advice" ColumnName="advice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

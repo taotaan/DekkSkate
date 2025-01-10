@@ -2,31 +2,98 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="@Url.Content("~/Content/StyleSheet.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://image.makewebcdn.com/makeweb/m_1920x0/oBhc8180X/DefaultData/PRODUCT4.png" alt="Image 1">
+        <img src="https://cdn.shopify.com/s/files/1/0530/0695/8744/t/22/assets/skateboard-clothing-brands---the-supply-network-1671636468474.webp?v=1671636469" alt="Image 2">
+        <img src="https://m.media-amazon.com/images/I/7157i2rcKvL._AC_UF894,1000_QL80_.jpg" alt="Image 3">
+        <img src="https://st.depositphotos.com/1001951/1331/i/450/depositphotos_13311145-stock-photo-skateboard-trick-in-motion.jpg" alt="Image 4">
+        <img src="https://e1.pxfuel.com/desktop-wallpaper/603/464/desktop-wallpaper-skateboard-thumbnail.jpg" alt="Image 5">
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <br />
+    <div class="topic">
+        <h1><b>EQUIPMENT</b></h1>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+
+    <div class="equipment-grid">
+        <div class="equipment-item">
+            <img src="https://www.thesupplynetwork.co.uk/cdn/shop/articles/factors-to-consider-when-choosing-skateboard-wheels-1681558150318_68b6077b-9dc6-4f59-8324-fa4a5e564468.webp?v=1706294273&width=1024" alt="Wheel">
+            <p><b>WHEEL</b></p>
+        </div>
+
+        <div class="equipment-item">
+            <img src="https://ae01.alicdn.com/kf/S5cee1cd505f041c8b45fc6767a777e25z/Leopard-Print-Skateboard-Grip-Tape-Sheet-Purple-Colorful-Animal-Skin-Print-Scooter-Deck-Griptape-Longboard-Sandpaper.jpg" alt="SKATEBOARD SHEET">
+            <p><b>SKATEBOARD SHEET</b></p>
+        </div>
+
+        <div class="equipment-item">
+            <img src="https://newportskate.com/cdn/shop/products/TruckSet.png?v=1653873897" alt="WHEEL AXLE">
+            <p><b>WHEEL AXLE</b></p>
+        </div>
+
+
+
+        <div class="equipment-item">
+            <img src="https://m.media-amazon.com/images/I/71El2NsQgHL._AC_UF1000,1000_QL80_.jpg" alt="KNEE/ELBOW PAD">
+            <p><b>KNEE/ELBOW PAD</b></p>
+        </div>
+
+        <div class="equipment-item">
+            <img src="https://www.chutingstar.com/media/catalog/product/cache/dc97733eb80fca7b98ca9f338944f881/p/r/protec_theclassiccertified_cs_group.jpg" alt="KNEE/ELBOW PAD">
+            <p><b>HELMET</b></p>
+        </div>
+
+        <div class="equipment-item">
+            <img src="https://kiddymoon.co.uk/eng_pl_Balance-Board-For-Adults-And-Kids-Wooden-Roller-Board-Gymnastics-Training-And-Coordination-Exercises-Fitness-Yoga-Stability-Sport-Physiotherapy-Workout-Available-with-mat-and-without-mat-Natural-33467_1.jpg" alt="Balance Board">
+            <p><b>BALANCE BOARD</b></p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="image-show">
+        <img src="~/Content/images/3.png" />
+        <img src="~/Content/images/2.png" />
+        <br />
+        <img src="~/Content/images/1.png" />
     </div>
-</div>
+
+    <p>
+        <hr>
+    </p>
+
+    <div class="topic-1">
+        <button class="btn">สำหรับคุณ</button>
+        <button class="btn">เปรียบเทียบ</button>
+    </div>
+
+    <div class="pic-1">
+        <img src="~/Content/images/4.png" />
+    </div>
+
+    <div class="topic">
+        <h1><b>ACCESSORIES</b></h1>
+    </div>
+
+    <div class="image-container-2">
+        <img src="https://m.media-amazon.com/images/I/71mFZdVyt2L.jpg" alt="Image 1">
+        <img src="https://img.redbull.com/images/c_crop,x_2931,y_0,h_4304,w_3228/c_fill,w_450,h_600/q_auto:low,f_auto/redbullcom/2020/5/15/nead4pqbgjnxqzdehjzi/vincent-matheron-skateboard-perpignan" alt="Image 2">
+        <img src="https://rukminim2.flixcart.com/image/850/1000/kxgfzbk0/skateboard/i/m/6/black-duck-fibre-26-x-6-5-fully-assembled-skateboard-suitable-original-imag9wr5yjerbqq6.jpeg?q=90&crop=false" alt="Image 3">
+        <img src="https://s.hdnux.com/photos/01/27/12/11/22848096/4/rawImage.jpg" alt="Image 4">
+        <img src="https://d3iscqpp00qd6m.cloudfront.net/static/images/landingpage/skateboard-deck/skateboard-deck-2.jpg" alt="Image 5">
+        <img src="https://www.skatedeluxe.com/blog/wp-content/uploads/2023/10/skateboards-beginner-with-helmets.jpg" alt="Image 6">
+        <img src="https://cruisincity.com/wp-content/uploads/2021/09/Globe-skateboards-street.jpg" alt="Image 7">
+    </div>
+
+
+    @section Scripts {
+        <script type="text/javascript" src="~/Scripts/js/script.js"></script>
+    }
+</body>
+</html>
 

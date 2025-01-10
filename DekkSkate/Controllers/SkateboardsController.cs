@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -67,26 +68,6 @@ namespace DekkSkate.Controllers
             return Json(skateboard, JsonRequestBehavior.AllowGet);
         }
 
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult Favorites(int id)
-        {
-            var skateboard = db.Skateboards.Find(id);
-            if (skateboard != null)
-            {
-                var userId = User.Identity.GetUserId(); // Assume a relationship between users and favorites
-                var fav = new Fav
-                {
-                    Email = userId,
-                    SkateboardID = id
-                };
-                db.Fav.Add(fav);
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
         public ActionResult ProductList()
         {
             string Email = User.Identity.GetUserName();  // ดึง Email ของผู้ใช้ปัจจุบัน
@@ -122,9 +103,12 @@ namespace DekkSkate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SkateboardID,Brand,Category,Description,Price,url,CreatedBy,CreatedAt,Email,stock,Model,address,advice")] Skateboards skateboards)
+        public ActionResult Create([Bind(Include = "SkateboardID,Brand,Category,Description,Price,url,CreatedBy,CreatedAt,Email,stock,Model,address,suggest")] Skateboards skateboards)
         {
+          
             skateboards.Email = User.Identity.GetUserName();
+
+     
             if (ModelState.IsValid)
             {
                 var file = Request.Files[0];
@@ -136,8 +120,9 @@ namespace DekkSkate.Controllers
                     file.SaveAs(path);
                     skateboards.url = fileName;
                 }
-                db.Skateboards.Add(skateboards);
-                db.SaveChanges();
+                    db.Skateboards.Add(skateboards);
+                    db.SaveChanges();
+         
                 return RedirectToAction("Index");
             }
 
@@ -185,8 +170,12 @@ namespace DekkSkate.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+        
+            
             return View(skateboards);
         }
+        
+
 
         // GET: Skateboards/Delete/5
         public ActionResult Delete(int? id)

@@ -26,6 +26,6 @@ namespace DekkSkate
         public Nullable<int> stock { get; set; }
         public string Model { get; set; }
         public string address { get; set; }
-        public string advice { get; set; }
+        public string suggest { get; set; }
     }
 }
