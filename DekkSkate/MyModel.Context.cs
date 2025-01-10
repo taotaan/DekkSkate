@@ -27,7 +27,7 @@ namespace DekkSkate
     
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Fav> Fav { get; set; }
-        public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Skateboards> Skateboards { get; set; }
+        public virtual DbSet<Reviews> Reviews { get; set; }
     }
 }

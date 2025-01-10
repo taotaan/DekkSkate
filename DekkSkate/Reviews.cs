@@ -18,6 +18,6 @@ namespace DekkSkate
         public string Email { get; set; }
         public string comment { get; set; }
         public Nullable<int> SkateboardID { get; set; }
-        public Nullable<int> rating { get; set; }
+        public Nullable<double> rating { get; set; }
     }
 }

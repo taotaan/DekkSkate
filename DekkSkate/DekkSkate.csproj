@@ -176,6 +176,7 @@
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SkateboardsController.cs" />
     <Compile Include="Fav.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
@@ -191,6 +192,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReviewsViewModel.cs" />
     <Compile Include="MyModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -295,14 +297,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Favorite\Index.cshtml" />
     <Content Include="Views\Skateboards\Create.cshtml" />
     <Content Include="Views\Skateboards\Delete.cshtml" />
     <Content Include="Views\Skateboards\Details.cshtml" />
     <Content Include="Views\Skateboards\Edit.cshtml" />
     <Content Include="Views\Skateboards\Index.cshtml" />
     <Content Include="Views\Skateboards\ProductList.cshtml" />
+    <Content Include="Views\Reviews\Addreviews.cshtml" />
     <Content Include="Views\Skateboards\Compare.cshtml" />
-    <Content Include="Views\Favorite\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

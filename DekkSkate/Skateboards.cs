@@ -27,5 +27,6 @@ namespace DekkSkate
         public string Model { get; set; }
         public string address { get; set; }
         public string suggest { get; set; }
+        public Nullable<double> rating { get; set; }
     }
 }

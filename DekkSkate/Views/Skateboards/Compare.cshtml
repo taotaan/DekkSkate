@@ -1,60 +1,133 @@
-﻿@model DekkSkate.Skateboards
+﻿@model IEnumerable<DekkSkate.Skateboards>
 
 @{
     ViewBag.Title = "Compare";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{ ViewBag.Title = "เปรียบเทียบสเก็ตบอร์ด"; }
+<h2>Compare</h2>
 
-<h2>เปรียบเทียบสินค้า</h2>
+<h2>Compare Skateboards</h2>
 
-<!-- ส่วนเลือกสินค้า -->
-<div>
-    <label>สินค้า 1:</label>
-    <input type="number" id="skateboard1" placeholder="ใส่ ID สินค้า" />
-    <button onclick="fetchSkateboard(1)">ค้นหา</button>
-</div>
-<div>
-    <label>สินค้า 2:</label>
-    <input type="number" id="skateboard2" placeholder="ใส่ ID สินค้า" />
-    <button onclick="fetchSkateboard(2)">ค้นหา</button>
-</div>
-
-<!-- ส่วนแสดงข้อมูลสินค้า -->
-<div class="comparison-container">
-    <div class="product" id="product1">
-        <h3>สินค้า 1</h3>
-        <img src="" alt="สินค้า 1" style="max-width: 100%; height: auto;" id="image1" />
-        <p id="description1"></p>
-        <p>ราคา: <span id="price1"></span></p>
-        <p>รุ่น: <span id="model1"></span></p>
+<!-- Form to select skateboards -->
+<form method="get" action="/Skateboards/Compare">
+    <div>
+        <label for="firstId">Select First Skateboard:</label>
+        <select id="firstId" name="firstId">
+            <option value="">-- Select --</option>
+            @foreach (var skateboard in (IEnumerable<Skateboards>)ViewBag.Skateboards)
+            {
+                <option value="@skateboard.SkateboardID">@skateboard.Brand - @skateboard.Model</option>
+}
+        </select>
     </div>
-
-    <div class="product" id="product2">
-        <h3>สินค้า 2</h3>
-        <img src="" alt="สินค้า 2" style="max-width: 100%; height: auto;" id="image2" />
-        <p id="description2"></p>
-        <p>ราคา: <span id="price2"></span></p>
-        <p>รุ่น: <span id="model2"></span></p>
+    <div>
+        <label for="secondId">Select Second Skateboard:</label>
+        <select id="secondId" name="secondId">
+            <option value="">-- Select --</option>
+            @foreach (var skateboard in (IEnumerable<Skateboards>)ViewBag.Skateboards)
+            {
+                <option value="@skateboard.SkateboardID">@skateboard.Brand - @skateboard.Model</option>
+}
+        </select>
     </div>
-</div>
+    <button type="submit">Compare</button>
+</form>
 
-<script>function fetchSkateboard(Skateboards) {
-        const id = document.getElementById(`skateboards${productNumber}`).value;
+<!-- Table to display comparison -->
+@if (Model.Any())
+{
+    <h3>Comparison Details</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>First Skateboard</th>
+                <th>Second Skateboard</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Brand</td>
+                <td>@Model.ElementAtOrDefault(0)?.Brand</td>
+                <td>@Model.ElementAtOrDefault(1)?.Brand</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>@Model.ElementAtOrDefault(0)?.Category</td>
+                <td>@Model.ElementAtOrDefault(1)?.Category</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@Model.ElementAtOrDefault(0)?.Description</td>
+                <td>@Model.ElementAtOrDefault(1)?.Description</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>@Model.ElementAtOrDefault(0)?.Price</td>
+                <td>@Model.ElementAtOrDefault(1)?.Price</td>
+            </tr>
+            <tr>
+                <td>Rating</td>
+                <td>@Model.ElementAtOrDefault(0)?.Rating</td>
+                <td>@Model.ElementAtOrDefault(1)?.Rating</td>
+            </tr>
+            <tr>
+                <td>Stock</td>
+                <td>@Model.ElementAtOrDefault(0)?.Stock</td>
+                <td>@Model.ElementAtOrDefault(1)?.Stock</td>
+            </tr>
+            <tr>
+                <td>Created By</td>
+                <td>@Model.ElementAtOrDefault(0)?.CreatedBy</td>
+                <td>@Model.ElementAtOrDefault(1)?.CreatedBy</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.ElementAtOrDefault(0)?.Email</td>
+                <td>@Model.ElementAtOrDefault(1)?.Email</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>@Model.ElementAtOrDefault(0)?.Address</td>
+                <td>@Model.ElementAtOrDefault(1)?.Address</td>
+            </tr>
+            <tr>
+                <td>Suggestions</td>
+                <td>@Model.ElementAtOrDefault(0)?.Suggestions</td>
+                <td>@Model.ElementAtOrDefault(1)?.Suggestions</td>
+            </tr>
+            <tr>
+                <td>Created At</td>
+                <td>@Model.ElementAtOrDefault(0)?.CreatedAt.ToShortDateString()</td>
+                <td>@Model.ElementAtOrDefault(1)?.CreatedAt.ToShortDateString()</td>
+            </tr>
+        </tbody>
+    </table>
+}
 
-    fetch(`/SkateboardsController/GetSkateboardDetails?id=${id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    document.getElementById(`product${productNumber}`).querySelector("h3").innerText = data.Brand;
-                    document.getElementById(`description${productNumber}`).innerText = data.Description;
-                    document.getElementById(`price${productNumber}`).innerText = `${data.Price} บาท`;
-                    document.getElementById(`model${productNumber}`).innerText = data.Model;
-                    document.getElementById(`url${productNumber}`).src = `/Content/images/${data.url}`;
-                } else {
-                    alert(`ไม่พบสินค้าด้วย ID ${id}`);
-                }
-            });
-    }</script>
+<style>
 
+    form {
+        margin-bottom: 20px;
+    }
+
+        form div {
+            margin-bottom: 10px;
+        }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #f4f4f4;
+        }
+    </style >

@@ -4,6 +4,9 @@
     ViewBag.Title = "ProductList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>ProductList</h2>
+
 @if (User.IsInRole("Service"))
 {
     <h2>ProductList</h2>
@@ -21,20 +24,20 @@
         </tr>
         @foreach (var item in Model)
         {
-    <tr>
-        <td>@item.Email</td>
-        <td>@item.Price</td>
-        <td><img src=@Url.Content("~/Content/images/" + (item.url)) style="width: 100px;height: auto" /></td>
-        <td>@item.stock</td>
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.Price</td>
+                <td><img src=@Url.Content("~/Content/images/" + (item.url)) style="width: 100px;height: auto" /></td>
+                <td>@item.stock</td>
 
 
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
-            @Html.ActionLink("Details", "Details", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
-        </td>
-    </tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Details", "Details", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
         }
 
     </table>

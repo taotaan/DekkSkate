@@ -7,119 +7,112 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="skateboard-container">
     <h4>Skateboards</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Brand)</dt>
+        <dd>@Html.DisplayFor(model => model.Brand)</dd>
 
+        <dt>@Html.DisplayNameFor(model => model.Category)</dt>
+        <dd>@Html.DisplayFor(model => model.Category)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
+        <dd>@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.url)</dt>
         <dd>
-            @Html.DisplayFor(model => model.Brand)
+            <img src=@Url.Content("~/Content/images/" + (Model.url)) style="width: 150px; height: auto;" />
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+        <dd>@Html.DisplayFor(model => model.CreatedBy)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.CreatedAt)</dt>
+        <dd>@Html.DisplayFor(model => model.CreatedAt)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.stock)</dt>
+        <dd>@Html.DisplayFor(model => model.stock)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Model)</dt>
+        <dd>@Html.DisplayFor(model => model.Model)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.address)</dt>
+        <dd>@Html.DisplayFor(model => model.address)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.url)
-        </dt>
-
-        <dd>
-            <img src=@Url.Content("~/Content/images/" + (Model.url)) style="width: 100px;height: auto" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.stock)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.stock)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.suggest)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.suggest)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.suggest)</dt>
+        <dd>@Html.DisplayFor(model => model.suggest)</dd>
     </dl>
+    <br />
+    <br />
+    <button class="review-button" onclick="location.href = '/Reviews/Addreviews/@Model.SkateboardID'">Write a Review</button>
+
 </div>
+<br />
+<br />
+<br />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SkateboardID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
-<form action="@Url.Action("Favorites", "Favorite", new { id = Model.SkateboardID })" method="post">
-    <button type="submit" class="btn btn-link text-danger">
-        Add to favorite
-    </button>
-</form>
+<style>
+    .skateboard-container {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-@if (User.IsInRole("Service") && Model.Email == User.Identity.Name)
-{
-@Html.ActionLink("Edit", "Edit", new { id = Model.SkateboardID }, new { @class = "btn btn-warning" })
-                <span> | </span>}
-@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        .skateboard-container h4 {
+            color: #ff4500;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
 
-<hr />
+    .dl-horizontal dt {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 150px;
+        margin-bottom: 10px;
+    }
+
+    img {
+        border: 2px solid #ff4500;
+        border-radius: 8px;
+    }
+
+    .review-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #ff4500, #ff6347);
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+        .review-button:hover {
+            background: linear-gradient(135deg, #ff6347, #ff4500);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+</style>

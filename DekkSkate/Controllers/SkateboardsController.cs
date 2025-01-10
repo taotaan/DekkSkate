@@ -45,36 +45,6 @@ namespace DekkSkate.Controllers
 
 
 
-        //เปรียบเทียบskate
-        public JsonResult GetSkateboardDetails(int id)
-        {
-            var skateboard = db.Skateboards
-                .Where(s => s.SkateboardID == id)
-                .Select(s => new
-                {
-                    Name = s.Brand,
-                    Description = s.Description,
-                    Price = s.Price,
-                    ImageURL = s.url,
-                    Stock = s.stock,
-                    Model = s.Model
-                }).FirstOrDefault();
-
-            if (skateboard == null)
-            {
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(skateboard, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult ProductList()
-        {
-            string Email = User.Identity.GetUserName();  // ดึง Email ของผู้ใช้ปัจจุบัน
-            var skateboards = db.Skateboards.Where(s => s.Email == Email).ToList();  // แสดงเฉพาะสินค้าที่เป็นของผู้ใช้
-            return View(skateboards);
-        }
-
         // GET: Skateboards/Details/5
         public ActionResult Details(int? id)
         {
@@ -90,11 +60,27 @@ namespace DekkSkate.Controllers
             return View(skateboards);
         }
 
-
+        public ActionResult ProductList()
+        {
+            string Email = User.Identity.GetUserName();  // ดึง Email ของผู้ใช้ปัจจุบัน
+            var skateboards = db.Skateboards.Where(s => s.Email == Email).ToList();  // แสดงเฉพาะสินค้าที่เป็นของผู้ใช้
+            return View(skateboards);
+        }
 
         // GET: Skateboards/Create
         public ActionResult Create()
         {
+            ViewBag.Category = new List<SelectListItem>
+{
+                new SelectListItem { Text = "Skateboard", Value = "Skateboard" },
+                new SelectListItem { Text = "Wheel", Value = "Wheel" },
+                new SelectListItem { Text = "Skateboard Sheet", Value = "Skateboard Sheet" },
+                new SelectListItem { Text = "Wheel Axle", Value = "Wheel Axle" },
+                new SelectListItem { Text = "Knee/Elbow Pad", Value = "Knee/Elbow Pad" },
+                new SelectListItem { Text = "Helmet", Value = "Helmet" },
+                new SelectListItem { Text = "Balance Board", Value = "Balance Board" }
+};
+
             return View();
         }
 
@@ -105,10 +91,9 @@ namespace DekkSkate.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SkateboardID,Brand,Category,Description,Price,url,CreatedBy,CreatedAt,Email,stock,Model,address,suggest")] Skateboards skateboards)
         {
-          
             skateboards.Email = User.Identity.GetUserName();
 
-     
+
             if (ModelState.IsValid)
             {
                 var file = Request.Files[0];
@@ -120,14 +105,32 @@ namespace DekkSkate.Controllers
                     file.SaveAs(path);
                     skateboards.url = fileName;
                 }
+                try {
                     db.Skateboards.Add(skateboards);
                     db.SaveChanges();
-         
+                }
+
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine($"Entity: {eve.Entry.Entity.GetType().Name}, State: {eve.Entry.State}");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine($"Property: {ve.PropertyName}, Error: {ve.ErrorMessage}");
+                        }
+                    }
+                    throw;
+                }
+
+
                 return RedirectToAction("Index");
             }
 
+
             return View(skateboards);
         }
+
 
         // GET: Skateboards/Edit/5
         public ActionResult Edit(int? id)
@@ -149,7 +152,7 @@ namespace DekkSkate.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SkateboardID,Brand,Category,Description,Price,url,CreatedBy,CreatedAt,Email,stock,Model,address,advice")] Skateboards skateboards)
+        public ActionResult Edit([Bind(Include = "SkateboardID,Brand,Category,Description,Price,url,CreatedBy,CreatedAt,Email,stock,Model,address,suggest")] Skateboards skateboards)
         {
             var userEmail = User.Identity.GetUserName();
 
@@ -170,11 +173,10 @@ namespace DekkSkate.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-        
-            
+
+
             return View(skateboards);
         }
-        
 
 
         // GET: Skateboards/Delete/5
@@ -210,6 +212,27 @@ namespace DekkSkate.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Compare(int? firstId, int? secondId)
+        {
+            var skateboards = db.Skateboards.ToList();
+
+            var selectedSkateboards = new List<Skateboards>();
+            if (firstId.HasValue)
+            {
+                var firstSkateboard = skateboards.FirstOrDefault(s => s.SkateboardID == firstId.Value);
+                if (firstSkateboard != null) selectedSkateboards.Add(firstSkateboard);
+            }
+
+            if (secondId.HasValue)
+            {
+                var secondSkateboard = skateboards.FirstOrDefault(s => s.SkateboardID == secondId.Value);
+                if (secondSkateboard != null) selectedSkateboards.Add(secondSkateboard);
+            }
+
+            ViewBag.Skateboards = skateboards;
+            return View(selectedSkateboards);
         }
     }
 }

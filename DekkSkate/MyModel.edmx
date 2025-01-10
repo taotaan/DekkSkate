@@ -44,7 +44,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="comment" Type="varchar(max)" />
           <Property Name="SkateboardID" Type="int" />
-          <Property Name="rating" Type="int" />
+          <Property Name="rating" Type="float" />
         </EntityType>
         <EntityType Name="Skateboards">
           <Key>
@@ -52,17 +52,18 @@
           </Key>
           <Property Name="SkateboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Brand" Type="nvarchar" MaxLength="250" />
-          <Property Name="Category" Type="nvarchar" MaxLength="100" />
+          <Property Name="Category" Type="nvarchar" MaxLength="500" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Price" Type="money" />
           <Property Name="url" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="nchar" MaxLength="10" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" />
           <Property Name="Email" Type="nvarchar" MaxLength="250" />
           <Property Name="stock" Type="int" />
           <Property Name="Model" Type="nvarchar" MaxLength="250" />
           <Property Name="address" Type="varchar" MaxLength="300" />
-          <Property Name="suggest" Type="nvarchar" MaxLength="1000" />
+          <Property Name="suggest" Type="nvarchar(max)" />
+          <Property Name="rating" Type="float" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
@@ -105,6 +106,31 @@
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Fav" EntityType="Self.Fav" />
+          <EntitySet Name="Skateboards" EntityType="Model.Skateboards" />
+          <EntitySet Name="Reviews" EntityType="Model.Reviews" />
+        </EntityContainer>
+        <EntityType Name="Skateboards">
+          <Key>
+            <PropertyRef Name="SkateboardID" />
+          </Key>
+          <Property Name="SkateboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="7" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="Model" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="suggest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating" Type="Double" />
+        </EntityType>
         <EntityType Name="Reviews">
           <Key>
             <PropertyRef Name="Reviews_id" />
@@ -113,32 +139,8 @@
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SkateboardID" Type="Int32" />
-          <Property Name="rating" Type="Int32" />
+          <Property Name="rating" Type="Double" />
         </EntityType>
-        <EntityType Name="Skateboards">
-          <Key>
-            <PropertyRef Name="SkateboardID" />
-          </Key>
-          <Property Name="SkateboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Brand" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="stock" Type="Int32" />
-          <Property Name="Model" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="suggest" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="Fav" EntityType="Self.Fav" />
-          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
-          <EntitySet Name="Skateboards" EntityType="Self.Skateboards" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -178,33 +180,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="Model.Reviews">
-              <MappingFragment StoreEntitySet="Reviews">
-                <ScalarProperty Name="Reviews_id" ColumnName="Reviews_id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Skateboards">
             <EntityTypeMapping TypeName="Model.Skateboards">
               <MappingFragment StoreEntitySet="Skateboards">
+                <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="suggest" ColumnName="suggest" />
-                <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="stock" ColumnName="stock" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Model.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="SkateboardID" ColumnName="SkateboardID" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Reviews_id" ColumnName="Reviews_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

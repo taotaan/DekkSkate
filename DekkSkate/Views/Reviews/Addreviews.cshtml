@@ -1,0 +1,126 @@
+﻿@model DekkSkate.Models.ReviewsViewModel
+
+@{
+    ViewBag.Title = "Addreviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Add a Review</h2>
+
+        @using (Html.BeginForm("Review", "Reviews", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Image Section -->
+                        <div class="col-md-6 text-center">
+                            <img class="img-fluid rounded mb-3" style="max-height: 200px;"
+                                 src="@Url.Content("~/Content/images/" + Model.Skateboards_url)" alt="Product Image">
+                        </div>
+
+                        
+                        <!-- Form Section -->
+                        <div class="col-md-6">
+                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                            @Html.HiddenFor(m => m.Email)
+                            @Html.HiddenFor(m => m.SkateboardID)
+
+                            <div class="title-bold-text">
+                                @Html.DisplayFor(m => m.Skateboards_Brand)
+                            </div>
+
+                            <div class="bold-text">
+                                $ @Html.DisplayFor(m => m.Skateboards_Price)
+                            </div>
+
+                            <div class="norm-text">
+                                @Html.DisplayFor(m => m.Skateboards_Description)
+                            </div>
+
+                            <hr />
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.rating, "Rating (1-5)", new { @class = "form-label" })
+                                <div class="input-group d-flex align-items-center">
+                                    <button type="button" class="btn btn-outline-secondary" id="decreaseRating">-</button>
+                                    <span id="productRatingLabel" class="form-control" style="width: 50px; text-align: center;">5</span>
+                                    <button type="button" class="btn btn-outline-secondary" id="increaseRating">+</button>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
+
+                                <!-- Hidden input to send the rating value -->
+                                <input type="hidden" name="rating" id="Product_rating" value="5" />
+                            </div>
+                        </div>
+
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.comment, "Your Review", new { @class = "form-label" })
+                                @Html.TextAreaFor(model => model.comment, new { @class = "form-control", rows = 4 })
+                                @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </div>
+         
+        }
+        <hr />
+
+        <div class="text-center mt-4">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('decreaseRating').addEventListener('click', function () {
+        var ratingLabel = document.getElementById('productRatingLabel');
+        var ratingValue = parseInt(ratingLabel.innerText);
+        if (ratingValue > 1) {
+            ratingLabel.innerText = ratingValue - 1;
+        }
+    });
+
+    document.getElementById('increaseRating').addEventListener('click', function () {
+        var ratingLabel = document.getElementById('productRatingLabel');
+        var ratingValue = parseInt(ratingLabel.innerText);
+        if (ratingValue < 5) {
+            ratingLabel.innerText = ratingValue + 1;
+        }
+    });
+
+    // Update hidden input value before submitting the form
+    document.querySelector('form').addEventListener('submit', function () {
+        var ratingValue = document.getElementById('productRatingLabel').innerText;
+        document.querySelector('[name="rating"]').value = ratingValue;
+    });
+</script>
+
+<style>
+    .title-bold-text {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    .bold-text {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .norm-text {
+        font-size: 16px;
+    }
+
+    .input-group button {
+        width: 40px; /* หรือกำหนดขนาดปุ่มตามต้องการ */
+    }
+</style>
