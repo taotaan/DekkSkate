@@ -5,31 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <h2>Favorite</h2>
 
 <div class="row">
-    @foreach (var item in Model)
+    @if (!Model.Any())
     {
-        <div class="col-md-3 mb-4" onclick="window.location='@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })'">
-            <div class="card shadow-sm position-relative">
-                <div class="favorite-icon position-absolute" style="top: 10px; right: 10px;">
-                </div>
-                <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 50%; height: auto; display: block; margin: 0 auto;">
-                <div class="card-body text-center">
-                    <h5 class="card-title">@item.Brand</h5>
-                    <p class="card-text">@item.Model</p>
-                    <p class="card-text"><strong>Price:</strong> @item.Price THB</p>
-
+        <div class="col-12 text-center">
+            <p>You haven't liked the product yet.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4" onclick="location.href='@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })'">
+                <div class="card shadow-sm position-relative">
+                    <div class="favorite-icon position-absolute" style="top: 10px; right: 10px;">
+                        <form action="@Url.Action("Delete", "Favorite", new { id = item.FavID })" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn text-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 50%; height: auto; display: block; margin: 0 auto;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@item.Brand</h5>
+                        <p class="card-text">@item.Model</p>
+                        <p class="card-text"><strong>Price:</strong> @item.Price THB</p>
+                    </div>
                 </div>
             </div>
-        </div>}
-
+        }
+    }
 </div>
+
+
 
 <br />
 <br />
 <br />
 @Html.ActionLink("Back to List", "Index", "Skateboards", null, new { @class = "btn btn-primary" })
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (TempData["Message"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '@TempData["Message"]',
+        });
+    </script>
+}
+
+
 
 <style>
     .card {

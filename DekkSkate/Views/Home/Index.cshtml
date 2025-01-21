@@ -1,6 +1,11 @@
-﻿@{
+﻿@model IEnumerable<DekkSkate.Skateboards>
+
+@{
     ViewBag.Title = "Home Page";
-}
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,14 +13,13 @@
     <link href="@Url.Content("~/Content/StyleSheet.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="image-container">
+    <div class="image-container" id="imageContainer">
         <img src="https://image.makewebcdn.com/makeweb/m_1920x0/oBhc8180X/DefaultData/PRODUCT4.png" alt="Image 1">
         <img src="https://cdn.shopify.com/s/files/1/0530/0695/8744/t/22/assets/skateboard-clothing-brands---the-supply-network-1671636468474.webp?v=1671636469" alt="Image 2">
         <img src="https://m.media-amazon.com/images/I/7157i2rcKvL._AC_UF894,1000_QL80_.jpg" alt="Image 3">
         <img src="https://st.depositphotos.com/1001951/1331/i/450/depositphotos_13311145-stock-photo-skateboard-trick-in-motion.jpg" alt="Image 4">
         <img src="https://e1.pxfuel.com/desktop-wallpaper/603/464/desktop-wallpaper-skateboard-thumbnail.jpg" alt="Image 5">
     </div>
-
     <br />
     <div class="topic">
         <h1><b>EQUIPMENT</b></h1>
@@ -24,52 +28,60 @@
 
     <div class="equipment-grid">
         <div class="equipment-item">
-            <img src="https://www.thesupplynetwork.co.uk/cdn/shop/articles/factors-to-consider-when-choosing-skateboard-wheels-1681558150318_68b6077b-9dc6-4f59-8324-fa4a5e564468.webp?v=1706294273&width=1024" alt="Wheel">
-            <p><b>WHEEL</b></p>
+            <button onclick="window.location='@Url.Action("Wheel", "Skateboards")'">
+                <img src="https://img.skatewarehouse.com/watermark/rsg.php?path=/content_images/A_Single_Shot_of_wheels_0301.jpg&nw=780" alt="Wheel">
+                <p><b>WHEEL</b></p>
+            </button>
         </div>
-
         <div class="equipment-item">
-            <img src="https://ae01.alicdn.com/kf/S5cee1cd505f041c8b45fc6767a777e25z/Leopard-Print-Skateboard-Grip-Tape-Sheet-Purple-Colorful-Animal-Skin-Print-Scooter-Deck-Griptape-Longboard-Sandpaper.jpg" alt="SKATEBOARD SHEET">
-            <p><b>SKATEBOARD SHEET</b></p>
+            <button onclick="window.location='@Url.Action("Sheet", "Skateboards")'">
+                <img src="https://ae01.alicdn.com/kf/S5cee1cd505f041c8b45fc6767a777e25z/Leopard-Print-Skateboard-Grip-Tape-Sheet-Purple-Colorful-Animal-Skin-Print-Scooter-Deck-Griptape-Longboard-Sandpaper.jpg" alt="SKATEBOARD SHEET">
+                <p><b>SKATEBOARD SHEET</b></p>
+            </button>
         </div>
-
         <div class="equipment-item">
-            <img src="https://newportskate.com/cdn/shop/products/TruckSet.png?v=1653873897" alt="WHEEL AXLE">
-            <p><b>WHEEL AXLE</b></p>
+            <button onclick="window.location='@Url.Action("WheelAxle", "Skateboards")'">
+                <img src="https://newportskate.com/cdn/shop/products/TruckSet.png?v=1653873897" alt="Wheel Axle">
+                <p><b>WHEEL AXLE</b></p>
+            </button>
         </div>
-
-
-
         <div class="equipment-item">
-            <img src="https://m.media-amazon.com/images/I/71El2NsQgHL._AC_UF1000,1000_QL80_.jpg" alt="KNEE/ELBOW PAD">
-            <p><b>KNEE/ELBOW PAD</b></p>
+            <button onclick="window.location='@Url.Action("KneePad", "Skateboards")'">
+                <img src="https://m.media-amazon.com/images/I/71El2NsQgHL._AC_UF1000,1000_QL80_.jpg" alt="Knee/Elbow Pad">
+                <p><b>KNEE/ELBOW PAD</b></p>
+            </button>
         </div>
-
         <div class="equipment-item">
-            <img src="https://www.chutingstar.com/media/catalog/product/cache/dc97733eb80fca7b98ca9f338944f881/p/r/protec_theclassiccertified_cs_group.jpg" alt="KNEE/ELBOW PAD">
-            <p><b>HELMET</b></p>
+            <button onclick="window.location='@Url.Action("Helmet", "Skateboards")'">
+                <img src="https://www.chutingstar.com/media/catalog/product/cache/dc97733eb80fca7b98ca9f338944f881/p/r/protec_theclassiccertified_cs_group.jpg" alt="Helmet">
+                <p><b>HELMET</b></p>
+            </button>
         </div>
-
         <div class="equipment-item">
-            <img src="https://kiddymoon.co.uk/eng_pl_Balance-Board-For-Adults-And-Kids-Wooden-Roller-Board-Gymnastics-Training-And-Coordination-Exercises-Fitness-Yoga-Stability-Sport-Physiotherapy-Workout-Available-with-mat-and-without-mat-Natural-33467_1.jpg" alt="Balance Board">
-            <p><b>BALANCE BOARD</b></p>
+            <button onclick="window.location='@Url.Action("BalanceBoard", "Skateboards")'">
+                <img src="https://kiddymoon.co.uk/eng_pl_Balance-Board-For-Adults-And-Kids-Wooden-Roller-Board-Gymnastics-Training-And-Coordination-Exercises-Fitness-Yoga-Stability-Sport-Physiotherapy-Workout-Available-with-mat-and-without-mat-Natural-33467_1.jpg" alt="Balance Board">
+                <p><b>BALANCE BOARD</b></p>
+            </button>
         </div>
     </div>
 
-    <div class="image-show">
+
+
+    <div class="image-show" id="imageShow">
         <img src="~/Content/images/3.png" />
-        <img src="~/Content/images/2.png" />
-        <br />
-        <img src="~/Content/images/1.png" />
-    </div>
 
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
     <p>
         <hr>
     </p>
 
     <div class="topic-1">
-        <button class="btn">สำหรับคุณ</button>
-        <button class="btn">เปรียบเทียบ</button>
+        <button class="btn" onclick="location.href = '/Skateboards/Compare'">เปรียบเทียบ</button>
+
     </div>
 
     <div class="pic-1">
@@ -80,15 +92,26 @@
         <h1><b>ACCESSORIES</b></h1>
     </div>
 
-    <div class="image-container-2">
-        <img src="https://m.media-amazon.com/images/I/71mFZdVyt2L.jpg" alt="Image 1">
-        <img src="https://img.redbull.com/images/c_crop,x_2931,y_0,h_4304,w_3228/c_fill,w_450,h_600/q_auto:low,f_auto/redbullcom/2020/5/15/nead4pqbgjnxqzdehjzi/vincent-matheron-skateboard-perpignan" alt="Image 2">
-        <img src="https://rukminim2.flixcart.com/image/850/1000/kxgfzbk0/skateboard/i/m/6/black-duck-fibre-26-x-6-5-fully-assembled-skateboard-suitable-original-imag9wr5yjerbqq6.jpeg?q=90&crop=false" alt="Image 3">
-        <img src="https://s.hdnux.com/photos/01/27/12/11/22848096/4/rawImage.jpg" alt="Image 4">
-        <img src="https://d3iscqpp00qd6m.cloudfront.net/static/images/landingpage/skateboard-deck/skateboard-deck-2.jpg" alt="Image 5">
-        <img src="https://www.skatedeluxe.com/blog/wp-content/uploads/2023/10/skateboards-beginner-with-helmets.jpg" alt="Image 6">
-        <img src="https://cruisincity.com/wp-content/uploads/2021/09/Globe-skateboards-street.jpg" alt="Image 7">
+    <div class="horizontal-scroll-container" style="display: flex; overflow-x: auto; gap: 10px; padding: 10px; background-color: #333;">
+        @foreach (var item in Model)
+        {
+            <button class="product-item" style="flex: 0 0 auto; width: 200px; text-align: center; color: white; background: #444; border-radius: 8px; padding: 10px;" onclick="window.location='@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })'">
+                <div class="product-image" style="margin-bottom: 10px;">
+                    <img src="@Url.Content("~/Content/images/" + item.url)" alt="@item.Brand @item.Model" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+                <div class="product-info" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <h3 style="font-size: 1rem;">@item.Brand</h3>
+                    <p style="margin: 0; font-size: 14px;">@item.Model</p>
+                    <p style="margin: 0; font-size: 14px;">@item.Price THB</p>
+                    <p style="margin: 0; font-size: 14px;">@item.stock ITEM</p>
+                    <p style="margin: 0; font-size: 14px;">@item.Category</p>
+
+                </div>
+            </button>
+
+        }
     </div>
+
 
 
     @section Scripts {
@@ -97,3 +120,15 @@
 </body>
 </html>
 
+<style>
+    .equipment-item button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+        .equipment-item button:focus {
+            outline: none;
+        }
+</style>

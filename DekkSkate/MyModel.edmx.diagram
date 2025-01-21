@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="Model.Fav" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Skateboards" Width="1.5" PointX="4.875" PointY="0.75" />
         <EntityTypeShape EntityType="Model.Reviews" Width="1.5" PointX="6.875" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.Reports" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="3.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

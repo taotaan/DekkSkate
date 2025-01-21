@@ -8,9 +8,11 @@ namespace DekkSkate.Controllers
 {
     public class HomeController : Controller
     {
+        private Entities db = new Entities();
         public ActionResult Index()
         {
-            return View();
+            var skateboards = db.Skateboards.ToList(); // ดึงข้อมูลจากฐานข้อมูล
+            return View(skateboards); // ส่งโมเดลไปยัง View
         }
 
         public ActionResult About()

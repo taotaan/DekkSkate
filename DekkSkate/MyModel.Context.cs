@@ -29,5 +29,7 @@ namespace DekkSkate
         public virtual DbSet<Fav> Fav { get; set; }
         public virtual DbSet<Skateboards> Skateboards { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
     }
 }

@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ProductList</h2>
-
 @if (User.IsInRole("Service"))
 {
     <h2>ProductList</h2>
@@ -29,9 +27,6 @@
                 <td>@item.Price</td>
                 <td><img src=@Url.Content("~/Content/images/" + (item.url)) style="width: 100px;height: auto" /></td>
                 <td>@item.stock</td>
-
-
-
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })
                     @Html.ActionLink("Details", "Details", new { id = item.SkateboardID }, new { @class = "btn btn-warning" })

@@ -119,7 +119,87 @@
         </div>
     </div>
 }
+<br />
+<br />
+<br />
+<hr />
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back-to-list" })
 </div>
+
+<style>
+    .form-control {
+       max-width: 1000px; /* กำหนดขนาดความกว้างของฟอร์มโดยรวม */
+       height: 40px;
+    margin: auto; /* จัดให้อยู่กลางหน้า */
+        border-radius: 5px;
+        border: 2px solid #ff7f00; /* สีส้ม */
+        padding: 10px;
+        background-color: #f4f4f4; /* สีขาวเทา */
+        color: #333;
+    }
+
+        .form-control:focus {
+            border-color: #ff7f00; /* สีส้ม */
+            box-shadow: 0 0 8px rgba(255, 127, 0, 0.8); /* เงาสีส้ม */
+        }
+
+    .btn-default {
+        background-color: #ff7f00; /* ปุ่มสีส้ม */
+        color: #ffffff; /* ข้อความสีขาว */
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn-default:hover {
+            background-color: #cc6600; /* สีส้มเข้มขึ้นเมื่อโฮเวอร์ */
+        }
+
+    h2, h4 {
+        color: #000000; /* สีดำ */
+    }
+
+    .form-horizontal .form-group label {
+        color: #4d4d4d; /* สีเทาเข้ม */
+        font-weight: bold;
+    }
+
+    .form-horizontal {
+        background-color: #ffffff; /* พื้นหลังสีขาว */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เงาสีดำอ่อน */
+    }
+
+    .col-md-offset-2.col-md-10 {
+        text-align: center;
+    }
+
+    .btn-back-to-list {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #ff7f00; /* สีส้ม */
+        border: 2px solid #ff7f00;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงา */
+    }
+
+        .btn-back-to-list:hover {
+            background-color: #cc6600; /* สีส้มเข้มเมื่อโฮเวอร์ */
+            color: #ffffff;
+            transform: translateY(-2px); /* ยกปุ่มขึ้น */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+        }
+
+        .btn-back-to-list:active {
+            transform: translateY(0); /* ลดลงเมื่อกด */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+</style>

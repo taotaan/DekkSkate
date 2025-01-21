@@ -1,133 +1,95 @@
 ﻿@model IEnumerable<DekkSkate.Skateboards>
 
 @{
-    ViewBag.Title = "Compare";
+    ViewBag.Title = "Compare Skateboards";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Compare</h2>
-
-<h2>Compare Skateboards</h2>
+<h2 style="text-align: center; color: orange;">เปรียบเทียบ สเก็ตบอร์ด รุ่นต่างๆ</h2>
 
 <!-- Form to select skateboards -->
-<form method="get" action="/Skateboards/Compare">
-    <div>
-        <label for="firstId">Select First Skateboard:</label>
+<form method="get" action="/Skateboards/Compare" style="text-align: center; margin-bottom: 30px;">
+    <div style="display: inline-block; margin-right: 20px;">
         <select id="firstId" name="firstId">
-            <option value="">-- Select --</option>
-            @foreach (var skateboard in (IEnumerable<Skateboards>)ViewBag.Skateboards)
+            <option value="">- Select -</option>
+            @foreach (var skateboards in (IEnumerable<Skateboards>)ViewBag.Skateboards)
             {
-                <option value="@skateboard.SkateboardID">@skateboard.Brand - @skateboard.Model</option>
-}
+                <option value="@skateboards.SkateboardID">@skateboards.Brand - @skateboards.Model</option>
+            }
         </select>
     </div>
-    <div>
-        <label for="secondId">Select Second Skateboard:</label>
+    <div style="display: inline-block;">
         <select id="secondId" name="secondId">
-            <option value="">-- Select --</option>
-            @foreach (var skateboard in (IEnumerable<Skateboards>)ViewBag.Skateboards)
+            <option value="">- Select -</option>
+            @foreach (var skateboards in (IEnumerable<Skateboards>)ViewBag.Skateboards)
             {
-                <option value="@skateboard.SkateboardID">@skateboard.Brand - @skateboard.Model</option>
-}
+                <option value="@skateboards.SkateboardID">@skateboards.Brand - @skateboards.Model</option>
+            }
         </select>
     </div>
-    <button type="submit">Compare</button>
+    <button type="submit" style="margin-left: 20px;">Compare</button>
 </form>
 
-<!-- Table to display comparison -->
-@if (Model.Any())
+@if (Model != null && Model.Count() >= 2)
 {
-    <h3>Comparison Details</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Property</th>
-                <th>First Skateboard</th>
-                <th>Second Skateboard</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Brand</td>
-                <td>@Model.ElementAtOrDefault(0)?.Brand</td>
-                <td>@Model.ElementAtOrDefault(1)?.Brand</td>
-            </tr>
-            <tr>
-                <td>Category</td>
-                <td>@Model.ElementAtOrDefault(0)?.Category</td>
-                <td>@Model.ElementAtOrDefault(1)?.Category</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>@Model.ElementAtOrDefault(0)?.Description</td>
-                <td>@Model.ElementAtOrDefault(1)?.Description</td>
-            </tr>
-            <tr>
-                <td>Price</td>
-                <td>@Model.ElementAtOrDefault(0)?.Price</td>
-                <td>@Model.ElementAtOrDefault(1)?.Price</td>
-            </tr>
-            <tr>
-                <td>Rating</td>
-                <td>@Model.ElementAtOrDefault(0)?.Rating</td>
-                <td>@Model.ElementAtOrDefault(1)?.Rating</td>
-            </tr>
-            <tr>
-                <td>Stock</td>
-                <td>@Model.ElementAtOrDefault(0)?.Stock</td>
-                <td>@Model.ElementAtOrDefault(1)?.Stock</td>
-            </tr>
-            <tr>
-                <td>Created By</td>
-                <td>@Model.ElementAtOrDefault(0)?.CreatedBy</td>
-                <td>@Model.ElementAtOrDefault(1)?.CreatedBy</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>@Model.ElementAtOrDefault(0)?.Email</td>
-                <td>@Model.ElementAtOrDefault(1)?.Email</td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td>@Model.ElementAtOrDefault(0)?.Address</td>
-                <td>@Model.ElementAtOrDefault(1)?.Address</td>
-            </tr>
-            <tr>
-                <td>Suggestions</td>
-                <td>@Model.ElementAtOrDefault(0)?.Suggestions</td>
-                <td>@Model.ElementAtOrDefault(1)?.Suggestions</td>
-            </tr>
-            <tr>
-                <td>Created At</td>
-                <td>@Model.ElementAtOrDefault(0)?.CreatedAt.ToShortDateString()</td>
-                <td>@Model.ElementAtOrDefault(1)?.CreatedAt.ToShortDateString()</td>
-            </tr>
-        </tbody>
-    </table>
+    <div style="display: flex; justify-content: space-around; align-items: flex-start; margin-top: 20px;">
+        <!-- First Skateboard -->
+        <div style="text-align: center; width: 45%; border: 1px solid #ddd; border-radius: 10px; padding: 20px;">
+            <h3>@Model.ElementAtOrDefault(0).Brand @Model.ElementAtOrDefault(0).Model</h3>
+            <img src="~/Content/images/@Model.ElementAtOrDefault(0).url" alt="First Skateboard" style="max-width: 100%; height: auto; border-radius: 10px;" />
+            <ul style="list-style: none; padding: 0; text-align: left;">
+                <li><strong>Brand:</strong> @Model.ElementAtOrDefault(0).Brand</li>
+                <li><strong>Category:</strong> @Model.ElementAtOrDefault(0).Category</li>
+                <li><strong>Price:</strong> @Model.ElementAtOrDefault(0).Price</li>
+                <li><strong>Rating:</strong> @Model.ElementAtOrDefault(0).rating</li>
+                <li><strong>Suggest:</strong> @Model.ElementAtOrDefault(0).suggest</li>
+            </ul>
+        </div>
+
+        <!-- Second Skateboard -->
+        <div style="text-align: center; width: 45%; border: 1px solid #ddd; border-radius: 10px; padding: 20px;">
+            <h3>@Model.ElementAtOrDefault(1).Brand @Model.ElementAtOrDefault(1).Model</h3>
+            <img src="~/Content/images/@Model.ElementAtOrDefault(1).url" alt="Second Skateboard" style="max-width: 100%; height: auto; border-radius: 10px;" />
+            <ul style="list-style: none; padding: 0; text-align: left;">
+                <li><strong>Brand:</strong> @Model.ElementAtOrDefault(1).Brand</li>
+                <li><strong>Category:</strong> @Model.ElementAtOrDefault(1).Category</li>
+                <li><strong>Price:</strong> @Model.ElementAtOrDefault(1).Price</li>
+                <li><strong>Rating:</strong> @Model.ElementAtOrDefault(1).rating</li>
+                <li><strong>Suggest:</strong> @Model.ElementAtOrDefault(1).suggest</li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <p style="text-align: center;">Please select two skateboards to compare.</p>
 }
 
 <style>
-
-    form {
-        margin-bottom: 20px;
+    body {
+        font-family: Arial, sans-serif;
     }
 
-        form div {
-            margin-bottom: 10px;
-        }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
+    h2 {
         margin-top: 20px;
     }
 
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
+    button {
+        padding: 10px 20px;
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: darkorange;
         }
 
-        .table th {
-            background-color: #f4f4f4;
-        }
-    </style >
+    select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 40px;
+    }
+</style>

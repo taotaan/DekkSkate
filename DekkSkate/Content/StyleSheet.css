@@ -9,21 +9,25 @@
 }
 
 .image-container {
+    margin-top: 80px;
     display: flex;
-    gap: 10px;
+    white-space: nowrap;
     overflow-x: hidden;
-    padding: 10px;
+    gap: 10px; /* ใช้ gap แทน margin-right */
     width: 100%;
-    margin-top: 60px;
+    position: relative;
+
 }
 
     .image-container img {
-        width: 300px;
-        height: 300px;
+        width: 100%; /* ให้ภาพปรับขนาดตาม container */
+        max-width: 300px; /* กำหนดขนาดสูงสุดสำหรับภาพแต่ละภาพ */
+        height: auto; /* ให้ภาพคงอัตราส่วน */
         flex-shrink: 0;
-        border-radius: 8px;
-        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 10px;
     }
+
 
 .topic {
     color: #F86820;
@@ -46,6 +50,7 @@
 
     .equipment-item img {
         max-width: 100%;
+        height: 200px;
         border-radius: 10px;
         transition: transform 0.3s ease, box-shadow 0.1s ease;
     }
@@ -62,23 +67,20 @@
     }
 
 .image-show {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    width: 100%; /* ความกว้างเต็ม */
+    height: auto; /* ปรับให้สูงเท่าที่เนื้อหาจำเป็น */
+    overflow: hidden; /* ซ่อนส่วนที่เกิน */
+    position: relative; /* กำหนดตำแหน่งสัมพันธ์ */
 }
 
     .image-show img {
-        width: 300px;
-        height: 200%;
-        transition: transform 0.3s ease, box-shadow 0.1s ease;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%; /* ใช้แทน height: 100% เพื่อลดความผิดเพี้ยน */
+
+        transition: all 2s ease;
     }
-
-        .image-show img:hover {
-            transform: translateY(-40px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
 .topic-1 {
     display: flex;
     justify-content: center;
@@ -124,8 +126,8 @@
 
 
     .image-container-2 img {
-        width: 300px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
         flex-shrink: 0;
         scroll-snap-align: start;
         border-radius: 8px;
@@ -232,4 +234,18 @@
     .footer-address p {
         font-size: 14px;
         line-height: 1.5;
+    }
+
+.horizontal-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: gray transparent;
+}
+
+    .horizontal-scroll-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .horizontal-scroll-container::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 4px;
     }

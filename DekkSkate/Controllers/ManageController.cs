@@ -424,6 +424,28 @@ namespace DekkSkate.Controllers
             Error
         }
 
-#endregion
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return HttpNotFound();
+            }
+
+            var user = UserManager.FindById(id);
+            if (user != null)
+            {
+                UserManager.Delete(user);
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        #endregion
     }
+
+
 }

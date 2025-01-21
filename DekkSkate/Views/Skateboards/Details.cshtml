@@ -1,118 +1,260 @@
-﻿@model DekkSkate.Skateboards
+﻿@model DekkSkate.Models.SkateboardsViewModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div class="skateboard-container">
-    <h4>Skateboards</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.Brand)</dt>
-        <dd>@Html.DisplayFor(model => model.Brand)</dd>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <dt>@Html.DisplayNameFor(model => model.Category)</dt>
-        <dd>@Html.DisplayFor(model => model.Category)</dd>
+<h2><strong>Details</strong></h2>
 
-        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-        <dd>@Html.DisplayFor(model => model.Description)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
-        <dd>@Html.DisplayFor(model => model.Price)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.url)</dt>
-        <dd>
-            <img src=@Url.Content("~/Content/images/" + (Model.url)) style="width: 150px; height: auto;" />
-        </dd>
-
-        <dt>@Html.DisplayNameFor(model => model.CreatedBy)</dt>
-        <dd>@Html.DisplayFor(model => model.CreatedBy)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.CreatedAt)</dt>
-        <dd>@Html.DisplayFor(model => model.CreatedAt)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
-        <dd>@Html.DisplayFor(model => model.Email)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.stock)</dt>
-        <dd>@Html.DisplayFor(model => model.stock)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Model)</dt>
-        <dd>@Html.DisplayFor(model => model.Model)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.address)</dt>
-        <dd>@Html.DisplayFor(model => model.address)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.suggest)</dt>
-        <dd>@Html.DisplayFor(model => model.suggest)</dd>
-    </dl>
+<div class="container">
+    <div class="main-content">
+        <div class="image-section">
+            <img src=@Url.Content("~/Content/images/" + (Model.Skateboards.url)) />
+        </div>
+        <div class="details-section">
+            <h1><strong>@Html.DisplayFor(model => model.Skateboards.Brand)</strong></h1>
+            <div class="price">
+                <dd>@Html.DisplayFor(model => model.Skateboards.Price) ฿</dd>
+            </div>
+            <ul>
+                <li>Brand : @Html.DisplayFor(model => model.Skateboards.Brand)</li>
+                <li>Category : @Html.DisplayFor(model => model.Skateboards.Category)</li>
+                <li>Model : @Html.DisplayFor(model => model.Skateboards.Model)</li>
+                <li>Description : @Html.DisplayFor(model => model.Skateboards.Description)</li>
+                <li>CreatedBy : @Html.DisplayFor(model => model.Skateboards.CreatedBy)</li>
+                <li>Stock : @Html.DisplayFor(model => model.Skateboards.stock) ITEM</li>
+            </ul>
+            <div class="button-group">
+                <button class="review-button" onclick="location.href = '/Favorite/Index/@Model.Skateboards.SkateboardID'">Add To Favorite</button>
+            </div>
+        </div>
+    </div>
     <br />
     <br />
-    <button class="review-button" onclick="location.href = '/Reviews/Addreviews/@Model.SkateboardID'">Write a Review</button>
+    <hr style="border: 1px solid #ddd; ">
+    <br />
+
+    <div class="address-section">
+        <h2><strong>Address</strong></h2>
+        <br />
+        <p>@Html.DisplayFor(model => model.Skateboards.address)</p>
+    </div>
+    <br />
+    <br />
+    <div class="description-section">
+        <h2><strong>Suggest</strong></h2>
+        <br />
+        <p>@Html.DisplayFor(model => model.Skateboards.suggest)</p>
+    </div>
+
+    <br />
+    <br />
+    <hr style="border: 1px solid #ddd; ">
+    <div id="comments-section" class="mt-3">
+        <div class="button-group">
+            <button class="review-button" onclick="location.href = '/Reviews/Addreviews/@Model.Skateboards.SkateboardID'">Comment</button>
+        </div>
+        <br />
+        <h5 class="text-left">Reviews</h5>
+        <div class="list-group review-container">
+            @foreach (var reviews in Model.Reviews)
+            {
+                <div class="list-group-item d-flex justify-content-between align-items-start bg-light">
+                    <div class="me-auto">
+                        <p class="mb-1">
+                            <i class="fas fa-user-circle me-2" style="font-size: 1.5rem; color: black;"></i>
+                            <strong>@reviews.Email</strong>
+                        </p>
+                        <p>@reviews.comment</p>
+                        <div>
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <span class="star" data-value="@i" style="color:@(i <= reviews.rating ? "gold" : "gray");">&#9733;</span>}
+                        </div>
+                    </div>
+                </div>}
+        </div>
+    </div>
+
 
 </div>
 <br />
 <br />
 <br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SkateboardID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.Identity.Name == Model.Skateboards.Email)
+    {
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Skateboards.SkateboardID }) |
 </p>
+}
+    <p>
+    @Html.ActionLink("Back to List", "Index")
+    </p>
 
-<style>
-    .skateboard-container {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f4;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    <style>
 
-        .skateboard-container h4 {
-            color: #ff4500;
-            font-size: 28px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .container {
+            width: 90%;
+            overflow: hidden;
+
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .image-section {
+            flex: 1 1 40%;
+            text-align: center;
+        }
+
+            .image-section img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        .details-section {
+            flex: 1 1 60%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            
+            border-radius: 10px;
+        }
+
+            .details-section h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .details-section .price {
+                font-size: 20px;
+                color: #d9534f;
+                margin-bottom: 20px;
+            }
+
+            .details-section ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .details-section ul li {
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                }
+
+            .details-section .button-group {
+                margin-top: 20px;
+            }
+
+                .details-section .button-group button {
+                    padding: 10px 20px;
+                    margin-right: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                .details-section .button-group .favorite-button {
+                    background-color: #f0ad4e;
+                    color: #fff;
+                }
+
+                .details-section .button-group .review-button {
+                    background-color: #5bc0de;
+                    color: #fff;
+                }
+
+        .description-section {
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+
+            .description-section h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .description-section p {
+                line-height: 1.6;
+                color: #555;
+            }
+
+
+        .address-section {
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        address-section h2 {
+            font-size: 20px;
             margin-bottom: 10px;
         }
 
-    .dl-horizontal dt {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .dl-horizontal dd {
-        margin-left: 150px;
-        margin-bottom: 10px;
-    }
-
-    img {
-        border: 2px solid #ff4500;
-        border-radius: 8px;
-    }
-
-    .review-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #ff4500, #ff6347);
-        color: #fff;
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-
-        .review-button:hover {
-            background: linear-gradient(135deg, #ff6347, #ff4500);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        .address-section p {
+            line-height: 1.6;
+            color: #555;
         }
-</style>
+
+        .review-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff4500, #ff6347);
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+            .review-button:hover {
+                background: linear-gradient(135deg, #ff6347, #ff4500);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            }
+
+        .list-group-item {
+            border: none;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        #comments-section {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+       
+
+        .star {
+            font-size: 2rem;
+            margin-right: 2px;
+        }
+
+        .fas.fa-user-circle {
+            vertical-align: middle;
+        }
+
+        .review-container {
+            max-height: 300px; /* กำหนดความสูงสูงสุด */
+            overflow-y: auto; /* เปิดใช้งาน scroll ในแนวตั้ง */
+            border: 1px solid #ccc; /* เพิ่มเส้นขอบสำหรับแยกส่วน */
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>

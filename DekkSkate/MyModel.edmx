@@ -36,6 +36,25 @@
           <Property Name="Category" Type="nvarchar" MaxLength="50" />
           <Property Name="Brand" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="nvarchar(max)" />
+          <Property Name="QuestionText" Type="nvarchar(max)" />
+          <Property Name="AnswerText" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="Report_Id" />
+          </Key>
+          <Property Name="Report_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Descript" Type="nvarchar(max)" />
+          <Property Name="SubmittedAt" Type="datetime" />
+          <Property Name="IsRead" Type="bit" />
+        </EntityType>
         <EntityType Name="Reviews">
           <Key>
             <PropertyRef Name="Reviews_id" />
@@ -68,6 +87,8 @@
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fav" EntityType="Self.Fav" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skateboards" EntityType="Self.Skateboards" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -111,6 +132,8 @@
           <EntitySet Name="Fav" EntityType="Self.Fav" />
           <EntitySet Name="Skateboards" EntityType="Model.Skateboards" />
           <EntitySet Name="Reviews" EntityType="Model.Reviews" />
+          <EntitySet Name="Reports" EntityType="Model.Reports" />
+          <EntitySet Name="Question" EntityType="Model.Question" />
         </EntityContainer>
         <EntityType Name="Skateboards">
           <Key>
@@ -140,6 +163,25 @@
           <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SkateboardID" Type="Int32" />
           <Property Name="rating" Type="Double" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="Report_Id" />
+          </Key>
+          <Property Name="Report_Id" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descript" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubmittedAt" Type="DateTime" Precision="3" />
+          <Property Name="IsRead" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -208,6 +250,27 @@
                 <ScalarProperty Name="comment" ColumnName="comment" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Reviews_id" ColumnName="Reviews_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="Model.Reports">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="Descript" ColumnName="Descript" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Report_Id" ColumnName="Report_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question">
+            <EntityTypeMapping TypeName="Model.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="AnswerText" ColumnName="AnswerText" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

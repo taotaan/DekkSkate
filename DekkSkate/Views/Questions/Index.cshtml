@@ -1,0 +1,104 @@
+﻿@model IEnumerable<DekkSkate.Question>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<h2>Question</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("เพิ่มคำถาม", "Create")
+    </p>
+}
+
+<div class="button-group">
+    <button class="review-button">@Html.ActionLink("นโยบายการใช้งาน", "Policy")</button>
+</div>
+<br />
+<br />
+<br />
+<table class="table">
+    @foreach (var item in Model.Where(s => s.category == "Manual"))
+    {
+        <tr>
+            <td>
+                <div class="dropdown">
+                    <button class="dropdown-toggle">
+                        @Html.DisplayFor(modelItem => item.QuestionText) <span class="arrow">&#9660;</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <p>@Html.DisplayFor(modelItem => item.AnswerText)</p>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Question_Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Question_Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Question_Id })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<style>
+    .dropdown {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 10px 0;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .dropdown-toggle .arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+    .dropdown.open .arrow {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-content {
+        display: none;
+        padding: 10px 0;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #666;
+    }
+
+    .dropdown.open .dropdown-content {
+        display: block;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.dropdown-toggle').forEach(button => {
+        button.addEventListener('click', function () {
+            const parent = this.closest('.dropdown');
+            parent.classList.toggle('open');
+        });
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DekkSkate.Reports>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact</h2>
+
+<p>
+    @Html.ActionLink("แจ้งปัญหา", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th> Date </th>
+        <th>Sate</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SubmittedAt)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsRead)
+    </td>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Report_Id }) |
+            @Html.ActionLink("Select", "Details", new { id = item.Report_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Report_Id })
+        </td>
+    }
+    </tr>
+
+}
+
+</table>

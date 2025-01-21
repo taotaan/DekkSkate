@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DekkSkate.Skateboards>
+
+@{
+    ViewBag.Title = "WheelAxle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<h2>Wheel Axle</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container mt-4">
+        <!-- Search Bar -->
+        <div class="form-group mb-4">
+            <input type="text" id="search" class="form-control" placeholder="Search" />
+        </div>
+
+
+
+        @if (User.IsInRole("Service"))
+        {
+            <p>
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary mb-3" })
+            </p>
+        }
+
+        @Html.ActionLink("เรียง", "Index", new { sortOrder = ViewBag.BrandSortParm }, new
+        { @class = "btn btn-default" })
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        @if (!Model.Any(s => s.Category == "Wheel Axle"))
+        {
+            <p class="text-center text-muted">ไม่มีสินค้า</p> }
+        else
+        {
+            foreach (var item in Model.Where(s => s.Category == "Wheel Axle"))
+            {
+                <div class="cardContainer col-md-3 mb-4" onclick="window.location='@Url.Action("Details", "Skateboards", new { id = item.SkateboardID })'">
+                    <div class="card shadow-sm position-relative">
+                        <div class="favorite-icon position-absolute" style="top: 10px; right: 10px;">
+                            <form action="@Url.Action("Favorites", "Favorite", new { id = item.SkateboardID })" method="post">
+                                <button type="submit" class="btn text-danger">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <img src="@Url.Content("~/Content/images/" + item.url)" class="card-img-top" alt="Skateboard Image" style="width: 100%; height: 200px; object-fit: cover; display: block; margin: 0 auto;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@item.Brand</h5>
+                            <p class="card-text">@item.Model</p>
+                            <p class="card-text"><strong>Price:</strong> @item.Price THB</p>
+                            <p class="card-text"><strong>Stock:</strong> @item.stock ITEM</p>
+                            <p class="card-text"><strong>Category:</strong> @item.Category</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        </div>
+}
+<script>
+    document.getElementById("search").addEventListener("keyup", function () {
+        const searchQuery = this.value.toLowerCase();
+        const productCards = document.querySelectorAll(".cardContainer");
+
+        productCards.forEach(card => {
+            const productName = card.querySelector(".card-title").textContent.toLowerCase();
+            const productDetail = card.querySelector(".card-text").textContent.toLowerCase();
+
+            if (productName.includes(searchQuery) || productDetail.includes(searchQuery)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+</script>
+
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+        padding: 17px 22px 12px;
+        margin-top: 20px;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+</style>
