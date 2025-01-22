@@ -4,54 +4,49 @@
                 Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="form-horizontal p-4 bg-light shadow rounded" style="background-color: white;">
         <h4 class="text-secondary text-center">Edit Skateboards</h4>
         <hr class="border border-dark" />
-     
-   
+
         @using (Html.BeginForm())
         {
-
 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal p-4 bg-dark text-white shadow rounded">
-                 
-                    <hr class="border-warning" />
+                <div class="p-4 bg-dark text-white shadow rounded">
                     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
                     @Html.HiddenFor(model => model.SkateboardID)
 
                     <!-- Brand -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Brand, "Brand", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Category -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Category, "Category", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Description -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Description, "Description", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Price -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Price, "Price", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- URL / Image -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.url, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
-                        @Html.EditorFor(model => model.url, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning", type = "file" } })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.url, "Image", new { @class = "form-label fw-bold text-warning" })
+                        <input type="file" class="form-control bg-dark text-white border-warning" name="url" />
                         @if (!string.IsNullOrEmpty(Model.url))
                         {
         <img src="@Url.Content("~/Content/images/" + Model.url)" class="img-thumbnail mt-2" style="max-width: 150px; border: 2px solid orange;" /> }
@@ -62,56 +57,56 @@
                     </div>
 
                     <!-- CreatedBy -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.CreatedBy, "Created By", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- CreatedAt -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.CreatedAt, "Created At", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Email -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Email, "Email", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Stock -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.stock, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.stock, "Stock", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.stock, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.stock, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Model -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Model, "Model", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Address -->
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.address, "Address", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Suggest -->
-                    <div class="form-group mb-4">
-                        @Html.LabelFor(model => model.suggest, htmlAttributes: new { @class = "form-label fw-bold text-warning" })
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.suggest, "Suggestion", new { @class = "form-label fw-bold text-warning" })
                         @Html.EditorFor(model => model.suggest, new { htmlAttributes = new { @class = "form-control bg-dark text-white border-warning" } })
                         @Html.ValidationMessageFor(model => model.suggest, "", new { @class = "text-danger" })
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="form-group text-end">
+                    <div class="text-end">
                         <input type="submit" value="Save" class="btn btn-warning px-4 text-black" />
                     </div>
                 </div>}
@@ -122,10 +117,9 @@
     </div>
 </div>
 
-
 <style>
     .btn-success {
-        background-color: #ff6600; /* สีส้ม */
+        background-color: #ff6600;
         border-color: #ff6600;
     }
 
@@ -134,11 +128,16 @@
         }
 
     .btn-secondary {
-        background-color: #000000; /* สีดำ */
+        background-color: #000000;
         color: #ffffff;
     }
 
     h2 {
-        color: #ff6600; /* สีส้ม */
+        color: #ff6600;
+    }
+
+    .form-horizontal {
+        border: 2px solid #ff6600;
+        border-radius: 10px;
     }
 </style>

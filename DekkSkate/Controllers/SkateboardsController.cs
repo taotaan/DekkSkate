@@ -93,6 +93,20 @@ namespace DekkSkate.Controllers
             return View(skateboards);
         }
 
+        public ActionResult UserList()
+        {
+            var users = db.AspNetUsers.ToList(); // Fetch Users
+            var skateboards = db.Skateboards.ToList(); // Fetch Skateboards
+
+            var model = new UserListViewModel
+            {
+                Users = users,
+                Skateboards = skateboards
+            };
+
+            return View(model);
+        }
+
         // GET: Skateboards/Create
         public ActionResult Create()
         {

@@ -9,6 +9,7 @@
 
 namespace DekkSkate
 {
+    using DekkSkate.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -31,5 +32,8 @@ namespace DekkSkate
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public DbSet<DashboardsViewModel> DashboardsViewModels { get; set; }
+
     }
 }

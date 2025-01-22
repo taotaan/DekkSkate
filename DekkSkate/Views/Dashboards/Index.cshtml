@@ -1,0 +1,188 @@
+﻿@model DekkSkate.Models.DashboardsViewModel
+
+@{
+    ViewBag.Title = "Dashboard Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div style="margin: 20px;">
+    <h1 style="font-size: 1.8em; text-align: center; margin-bottom: 20px;">Dashboard Overview</h1>
+
+
+    <!-- User Overview -->
+    <h2 style="font-size: 1.2em;">User Roles Distribution</h2>
+    <p>Total Users: <strong>@Model.TotalUsers</strong></p>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto;">
+        <canvas id="userRolesChart" style="max-width: 400px; max-height: 300px;"></canvas>
+    </div>
+
+    <!-- Skateboard Data -->
+    <section style="margin-bottom: 30px;">
+        <h2 style="font-size: 1.5em;">Skateboard Brands</h2>
+        <div style="max-width: 400px; max-height: 300px; margin: auto;">
+            <canvas id="skateboardBrandsChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Review Analysis -->
+    <section style="margin-bottom: 30px;">
+        <h2 style="font-size: 1.5em;">Review Ratings</h2>
+        <div style="max-width: 400px; max-height: 300px; margin: auto;">
+            <canvas id="reviewRatingsChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Reports Analysis -->
+    <section style="margin-bottom: 30px;">
+        <h2 style="font-size: 1.5em;">Report Analysis</h2>
+        <p>Total Reports: <strong>@Model.ReportsViewModel.Count</strong></p>
+
+        <div style="max-width: 400px; max-height: 300px; margin: auto;">
+            <canvas id="reportAnalysisChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Favorite Models -->
+    <section style="margin-bottom: 30px;">
+        <h2 style="font-size: 1.5em;">Favorite Models Popularity</h2>
+        <div style="max-width: 400px; max-height: 300px; margin: auto;">
+            <canvas id="favoriteModelsChart"></canvas>
+        </div>
+    </section>
+
+
+</div>
+
+<script>
+    // Skateboard Brands Chart
+    var skateboardBrandsCtx = document.getElementById('skateboardBrandsChart').getContext('2d');
+    var skateboardBrandsChart = new Chart(skateboardBrandsCtx, {
+        type: 'pie',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Skateboards.Keys)),
+            datasets: [{
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Skateboards.Values)),
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // Review Ratings Chart
+    var reviewRatingsCtx = document.getElementById('reviewRatingsChart').getContext('2d');
+    var reviewRatingsChart = new Chart(reviewRatingsCtx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ReviewsViewModel.Keys)),
+            datasets: [{
+                label: 'Average Rating',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ReviewsViewModel.Values)),
+                backgroundColor: '#36A2EB',
+                borderColor: '#2B8CC4',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Rating'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Comments'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Reports Analysis Chart
+    var reportAnalysisCtx = document.getElementById('reportAnalysisChart').getContext('2d');
+    var reportAnalysisChart = new Chart(reportAnalysisCtx, {
+        type: 'pie',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ReportsViewModel.GroupBy(r => r).Select(g => g.Key))),
+            datasets: [{
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ReportsViewModel.GroupBy(r => r).Select(g => g.Count()))),
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // Favorite Models Chart
+    var favoriteModelsCtx = document.getElementById('favoriteModelsChart').getContext('2d');
+    var favoriteModelsChart = new Chart(favoriteModelsCtx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FavoriteViewModel.GroupBy(f => f).Select(g => g.Key))),
+            datasets: [{
+                label: 'Popularity',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FavoriteViewModel.GroupBy(f => f).Select(g => g.Count()))),
+                backgroundColor: '#4BC0C0'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Models'
+                    }
+                }
+            }
+        }
+    });
+
+       var userRolesCtx = document.getElementById('userRolesChart').getContext('2d');
+    var userRolesChart = new Chart(userRolesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.UserRolesCount.Keys)),
+            datasets: [{
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.UserRolesCount.Values)),
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>

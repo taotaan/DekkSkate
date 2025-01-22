@@ -7,6 +7,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +31,7 @@
                     <li>@Html.ActionLink("Questions", "Index", "Questions")</li>
                     <li>
                         <a href="@Url.Action("Index", "Favorite")">
-                            <i class="fa fa-heart" style="color: red;"></i> 
+                            <i class="fa fa-heart" style="color: red;"></i>
                         </a>
                     </li>
                 </ul>
@@ -38,8 +42,43 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <!-- Logo and Description -->
+                <div class="footer-logo">
+                    <h2>Dekkk <span>skate</span></h2>
+                    <p>Good design is not only beautiful, but also functional.</p>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-contact">
+                    <h3>CONTACT</h3>
+                    <ul>
+                        <li><i class="fab fa-facebook"></i> DEKKK SKATE</li>
+                        <li><i class="fab fa-instagram"></i> dekk_skate</li>
+                        <li><i class="fab fa-twitter"></i> dekk_skate</li>
+                        <li><i class="fa fa-phone"></i> 081-234-5678</li>
+                    </ul>
+                </div>
+
+                <!-- About -->
+                <div class="footer-about">
+                    <h3>ABOUT</h3>
+                    <ul>
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">STORE</a></li>
+                        <li><a href="#">CONTACT</a></li>
+                        <li><a href="#">QUESTIONS</a></li>
+                    </ul>
+                </div>
+
+                <!-- Address -->
+                <div class="footer-address">
+                    <h3>ADDRESS</h3>
+                    <p>111, University Road, Suranaree Subdistrict, Mueang Nakhon Ratchasima District, Nakhon Ratchasima 30000</p>
+                </div>
+            </div>
         </footer>
     </div>
 
